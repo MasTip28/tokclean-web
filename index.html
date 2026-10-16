@@ -4,14 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TokClean.io - TikTok Downloader Premium</title>
+    <!-- Memanggil Tailwind CSS Resmi -->
     <script src="https://tailwindcss.com"></script>
 </head>
 <body class="min-h-screen bg-neutral-950 text-neutral-100 flex flex-col justify-between font-sans relative overflow-hidden">
 
+    <!-- Efek Cahaya Lampu Neon Latar Belakang -->
     <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-pink-600/10 rounded-full blur-[120px] pointer-events-none"></div>
     <div class="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-cyan-600/10 rounded-full blur-[120px] pointer-events-none"></div>
 
-    <header class="border-b border-neutral-900/60 backdrop-blur-md sticky top-0 z-50">
+    <!-- Header Atas -->
+    <header class="border-b border-neutral-900/60 backdrop-blur-md sticky top-0 z-50 bg-neutral-950/50">
         <div class="max-w-5xl mx-auto w-full flex items-center justify-between py-5 px-6">
             <h1 class="text-2xl font-black bg-gradient-to-r from-cyan-400 via-pink-500 to-amber-400 bg-clip-text text-transparent tracking-wider">
                 TOKCLEAN.IO
@@ -22,6 +25,7 @@
         </div>
     </header>
 
+    <!-- Konten Utama Tengah -->
     <main class="flex-grow flex flex-col items-center justify-center px-4 max-w-3xl mx-auto w-full text-center py-16 relative z-10">
         <div class="space-y-4 mb-10">
             <h2 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-tight">
@@ -33,6 +37,7 @@
             </p>
         </div>
 
+        <!-- Kotak Input Utama -->
         <div class="w-full bg-neutral-900/40 p-6 rounded-3xl border border-neutral-800/80 backdrop-blur-xl shadow-2xl">
             <form id="downloadForm" class="flex flex-col gap-3">
                 <input
@@ -51,20 +56,24 @@
                 </button>
             </form>
 
+            <!-- Notifikasi Hasil -->
             <div id="statusMessage" class="hidden mt-4 text-xs font-medium p-3 rounded-xl transition-all"></div>
         </div>
 
+        <!-- Info Grid Bawah -->
         <div class="grid grid-cols-3 gap-4 mt-8 w-full max-w-md text-center">
-            <div class="p-3 bg-neutral-900/20 rounded-xl border border-neutral-800"><p class="text-xs text-neutral-500">Kualitas</p><p class="text-sm font-bold text-neutral-300">HD / .MP4</p></div>
-            <div class="p-3 bg-neutral-900/20 rounded-xl border border-neutral-800"><p class="text-xs text-neutral-500">Kecepatan</p><p class="text-sm font-bold text-neutral-300">Tanpa Limit</p></div>
-            <div class="p-3 bg-neutral-900/20 rounded-xl border border-neutral-800"><p class="text-xs text-neutral-500">Kompatibel</p><p class="text-sm font-bold text-neutral-300">Semua HP</p></div>
+            <div class="p-3 bg-neutral-900/40 rounded-xl border border-neutral-800/60"><p class="text-xs text-neutral-500">Kualitas</p><p class="text-sm font-bold text-neutral-300">HD / .MP4</p></div>
+            <div class="p-3 bg-neutral-900/40 rounded-xl border border-neutral-800/60"><p class="text-xs text-neutral-500">Kecepatan</p><p class="text-sm font-bold text-neutral-300">Tanpa Limit</p></div>
+            <div class="p-3 bg-neutral-900/40 rounded-xl border border-neutral-800/60"><p class="text-xs text-neutral-500">Kompatibel</p><p class="text-sm font-bold text-neutral-300">Semua HP</p></div>
         </div>
     </main>
 
-    <footer class="py-6 text-center text-xs text-neutral-600 border-t border-neutral-900/60">
-        &copy; 2026 TokClean Premium. Dibuat secara eksklusif untuk kemudahan berbagi konten.
+    <!-- Footer Bawah -->
+    <footer class="py-6 text-center text-xs text-neutral-600 border-t border-neutral-900/60 bg-neutral-950/20">
+        &copy; 2026 TokClean Premium. Dibuat secara eksplisit untuk kenyamanan berbagi konten.
     </footer>
 
+    <!-- Script Mesin Download -->
     <script>
         document.getElementById('downloadForm').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -79,15 +88,16 @@
             try {
                 const cleanUrl = inputUrl.split('?')[0];
                 const res = await fetch(`https://eu.org{encodeURIComponent(cleanUrl)}`);
+                if (!res.ok) throw new Error();
                 const data = await res.json();
                 
                 const videoUrl = data.video?.noWatermark || data.video?.watermark;
-                if (!videoUrl) throw new Error('Gagal mengambil video.');
+                if (!videoUrl) throw new Error();
 
                 window.open(videoUrl, '_blank');
 
                 statusMessage.className = "mt-4 text-xs font-medium bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 p-3 rounded-xl block";
-                statusMessage.innerText = "✅ Sukses! Video berhasil dibuka di tab baru, silakan simpan/unduh.";
+                statusMessage.innerText = "✅ Sukses! Video berhasil dibuka di tab baru, silakan unduh.";
 
             } catch (err) {
                 statusMessage.className = "mt-4 text-xs font-medium bg-rose-500/10 border border-rose-500/20 text-rose-400 p-3 rounded-xl block";
